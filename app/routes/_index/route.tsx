@@ -23,25 +23,27 @@ interface AppProps {
 const AppContent = ({ showForm }: AppProps) => {
   return (
     <div className={styles.content}>
-      <div className={styles.titleSection}>
+      <section className={styles.titleSection}>
         <h1 className={styles.heading}>Conecte sua loja ao nosso app</h1>
         <p className={styles.text}>
           Automatize processos, economize tempo e ofereça experiências melhores para seus clientes.
         </p>
-      </div>
+      </section>
 
       {showForm && (
-        <div className={styles.formSection}>
+        <section className={styles.formSection}>
           <Form className={styles.form} method="post" action="/auth/login">
             <div className={styles.formGroup}>
-              <label className={styles.label}>
+              <label className={styles.label} htmlFor="shop">
                 <span>Insira o domínio da sua loja</span>
                 <input
+                  id="shop"
                   className={styles.input}
                   type="text"
                   name="shop"
                   placeholder="sua-loja.myshopify.com"
                   aria-label="Domínio da loja"
+                  required
                 />
                 <span className={styles.inputHint}>Exemplo: minha-loja.myshopify.com</span>
               </label>
@@ -50,10 +52,10 @@ const AppContent = ({ showForm }: AppProps) => {
               </button>
             </div>
           </Form>
-        </div>
+        </section>
       )}
 
-      <div className={styles.featuresSection}>
+      <section className={styles.featuresSection}>
         <h2 className={styles.sectionTitle} hidden>Benefícios</h2>
         <ul className={styles.list}>
           <li>
@@ -66,7 +68,7 @@ const AppContent = ({ showForm }: AppProps) => {
             <strong>Integração com Shopify</strong>. Compatível com todas as funções essenciais da sua loja.
           </li>
         </ul>
-      </div>
+      </section>
     </div>
   );
 };

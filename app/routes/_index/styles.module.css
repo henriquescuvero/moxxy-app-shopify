@@ -7,76 +7,180 @@
   --transition: all 0.3s ease;
 }
 
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+/* Layout principal */
 .index {
-  align-items: center;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  height: 100%;
-  width: 100%;
-  text-align: center;
-  padding: 3rem;
+  align-items: center;
+  padding: 1rem;
   background-color: var(--secondary-color);
 }
 
+/* Conteúdo principal */
+.content {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+/* Seções */
 .titleSection {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
 .heading {
-  font-size: 2.8rem;
+  font-size: clamp(1.5rem, 5vw, 2.8rem);
   font-weight: 800;
   color: var(--primary-color);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   line-height: 1.2;
 }
 
 .text {
-  font-size: 1.4rem;
+  font-size: clamp(1rem, 3vw, 1.4rem);
   line-height: 1.8;
   color: var(--text-color);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
-.content {
-  background: var(--secondary-color);
-  padding: 3rem;
-  max-width: 800px;
-  width: 100%;
-}
-
+/* Formulário */
 .formSection {
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
 .formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  width: 100%;
   max-width: 400px;
   margin: 0 auto;
 }
 
+.form {
+  width: 100%;
+}
+
+.label {
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+}
+
 .inputHint {
-  font-size: 1.1rem;
+  font-size: clamp(0.8rem, 3vw, 1.1rem);
   color: var(--text-color);
   opacity: 0.7;
   margin-top: 0.5rem;
 }
 
+.button {
+  width: 100%;
+  max-width: 300px;
+  margin: 1rem auto;
+}
+
+/* Lista de benefícios */
 .featuresSection {
-  text-align: center;
+  width: 100%;
 }
 
 .sectionTitle {
-  font-size: 1.8rem;
+  font-size: clamp(1.2rem, 4vw, 1.8rem);
   font-weight: 600;
   color: var(--primary-color);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0;
+}
+
+.list > li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--light-gray);
+  border-radius: var(--border-radius);
+}
+
+.list > li::before {
+  content: "•";
+  color: var(--primary-color);
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  line-height: 1;
+  font-weight: 700;
+  margin-left: -1rem;
+}
+
+/* Media Queries */
+@media (min-width: 640px) {
+  .content {
+    padding: 3rem;
+  }
+
+  .heading {
+    font-size: 2.8rem;
+  }
+
+  .text {
+    font-size: 1.4rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+
+  .list > li {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .list > li::before {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .content {
+    padding: 4rem;
+  }
+
+  .heading {
+    font-size: 3.2rem;
+  }
+
+  .text {
+    font-size: 1.6rem;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
 }
 
 .form {
