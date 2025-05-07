@@ -112,7 +112,7 @@ export default function Index() {
 
   return (
     <Page>
-      <TitleBar title="Remix app template">
+      <TitleBar title="Moxxy App - Dashboard">
         <button variant="primary" onClick={generateProduct}>
           Generate a product
         </button>

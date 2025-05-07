@@ -1,4 +1,9 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Moxxy App" },
+  ];
+};
 import { redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 
@@ -59,13 +64,13 @@ const AppContent = ({ showForm }: AppProps) => {
         <h2 className={styles.sectionTitle} hidden>Benefícios</h2>
         <ul className={styles.list}>
           <li>
-            <strong>Instalação rápida</strong>. Conecte sua loja em poucos segundos com nosso processo simplificado.
+            <strong>Instalação rápida</strong> Conecte sua loja em poucos segundos com nosso processo simplificado.
           </li>
           <li>
-            <strong>Gestão automatizada</strong>. Automatize tarefas repetitivas para focar no que realmente importa.
+            <strong>Gestão automatizada</strong> Automatize tarefas repetitivas para focar no que realmente importa.
           </li>
           <li>
-            <strong>Integração com Shopify</strong>. Compatível com todas as funções essenciais da sua loja.
+            <strong>Integração com Shopify</strong> Compatível com todas as funções essenciais da sua loja.
           </li>
         </ul>
       </section>
