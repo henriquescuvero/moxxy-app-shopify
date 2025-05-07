@@ -3,7 +3,7 @@
 client_id = "d75918a06ce58f1ae86e07b1425ec841"
 name = "Moxxy App"
 handle = "moxxy-app"
-application_url = "https://florists-retired-land-workers.trycloudflare.com"
+application_url = "https://jennifer-faster-faqs-register.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://florists-retired-land-workers.trycloudflare.com/auth/callback",
-  "https://florists-retired-land-workers.trycloudflare.com/auth/shopify/callback",
-  "https://florists-retired-land-workers.trycloudflare.com/api/auth/callback"
+  "https://jennifer-faster-faqs-register.trycloudflare.com/auth/callback",
+  "https://jennifer-faster-faqs-register.trycloudflare.com/auth/shopify/callback",
+  "https://jennifer-faster-faqs-register.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
