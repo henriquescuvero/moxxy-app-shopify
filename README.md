@@ -101,6 +101,10 @@ Para contribuir com o projeto:
 3. Faça commit das suas alterações
 4. Abra um Pull Request
 
+## Histórico de Versões
+
+- **v0.6 (DD/MM/AAAA)**: Release inicial com funcionalidades básicas de gerenciamento de popups, incluindo criação, listagem, edição (placeholder), exclusão (placeholder), ordenação e ações em massa (placeholder).
+
 ## Licença
 
 MIT
