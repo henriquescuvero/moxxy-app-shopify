@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { useFetcher } from "@remix-run/react";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -12,6 +12,7 @@ import {
   List,
   Link,
   InlineStack,
+  Banner,
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
@@ -19,7 +20,14 @@ import { authenticate } from "../shopify.server";
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
 
-  return null;
+  // Mock data for pop-up metrics
+  const MOCK_DATA = {
+    activePopups: 5, // Exemplo: 5 pop-ups ativos
+    totalViews: 1250, // Exemplo: 1250 visualizações totais
+    totalClicks: 300, // Exemplo: 300 cliques totais
+  };
+
+  return MOCK_DATA;
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
@@ -93,6 +101,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Index() {
   const fetcher = useFetcher<typeof action>();
+  const loaderData = useLoaderData<typeof loader>(); // Adicionado esta linha
 
   const shopify = useAppBridge();
   const isLoading =
@@ -105,7 +114,7 @@ export default function Index() {
 
   useEffect(() => {
     if (productId) {
-      shopify.toast.show("Product created");
+      shopify.toast.show("Pop-up de exemplo (Produto) criado com sucesso!");
     }
   }, [productId, shopify]);
   const generateProduct = () => fetcher.submit({}, { method: "POST" });
@@ -114,63 +123,62 @@ export default function Index() {
     <Page>
       <TitleBar title="Moxxy App - Dashboard">
         <button variant="primary" onClick={generateProduct}>
-          Generate a product
+          Criar Pop-up (Demo)
         </button>
       </TitleBar>
       <BlockStack gap="500">
+        <Layout>
+          <Layout.Section>
+            <Banner title="Estatísticas dos Pop-ups" tone="success">
+              <Card>
+                <BlockStack gap="200">
+                  {/* O título "Estatísticas dos Pop-ups" foi movido para a prop title do Banner */}
+                <InlineStack gap="400" align="space-around" blockAlign="center">
+                  <BlockStack gap="100" inlineAlign="center">
+                    <Text as="p" variant="headingLg" alignment="center">
+                      {loaderData?.activePopups ?? 0}
+                    </Text>
+                    <Text as="p" variant="bodyMd" alignment="center">
+                      Pop-ups Ativos
+                    </Text>
+                  </BlockStack>
+                  <BlockStack gap="100" inlineAlign="center">
+                    <Text as="p" variant="headingLg" alignment="center">
+                      {loaderData?.totalViews ?? 0}
+                    </Text>
+                    <Text as="p" variant="bodyMd" alignment="center">
+                      Visualizações
+                    </Text>
+                  </BlockStack>
+                  <BlockStack gap="100" inlineAlign="center">
+                    <Text as="p" variant="headingLg" alignment="center">
+                      {loaderData?.totalClicks ?? 0}
+                    </Text>
+                    <Text as="p" variant="bodyMd" alignment="center">
+                      Cliques
+                    </Text>
+                  </BlockStack>
+                </InlineStack>
+              </BlockStack>
+            </Card>
+            </Banner>
+          </Layout.Section>
+        </Layout>
         <Layout>
           <Layout.Section>
             <Card>
               <BlockStack gap="500">
                 <BlockStack gap="200">
                   <Text as="h2" variant="headingMd">
-                    Congrats on creating a new Shopify app 🎉
+                    Recursos Principais do Moxxy App
                   </Text>
                   <Text variant="bodyMd" as="p">
-                    This embedded app template uses{" "}
-                    <Link
-                      url="https://shopify.dev/docs/apps/tools/app-bridge"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    interface examples like an{" "}
-                    <Link url="/app/additional" removeUnderline>
-                      additional page in the app nav
-                    </Link>
-                    , as well as an{" "}
-                    <Link
-                      url="https://shopify.dev/docs/api/admin-graphql"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      Admin GraphQL
-                    </Link>{" "}
-                    mutation demo, to provide a starting point for app
-                    development.
-                  </Text>
-                </BlockStack>
-                <BlockStack gap="200">
-                  <Text as="h3" variant="headingMd">
-                    Get started with products
-                  </Text>
-                  <Text as="p" variant="bodyMd">
-                    Generate a product with GraphQL and get the JSON output for
-                    that product. Learn more about the{" "}
-                    <Link
-                      url="https://shopify.dev/docs/api/admin-graphql/latest/mutations/productCreate"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      productCreate
-                    </Link>{" "}
-                    mutation in our API references.
+                    O Moxxy App permite que você crie, gerencie e otimize pop-ups para sua loja Shopify. Aumente suas conversões e engaje seus clientes com nossas ferramentas intuitivas. Explore as funcionalidades abaixo para começar.
                   </Text>
                 </BlockStack>
                 <InlineStack gap="300">
                   <Button loading={isLoading} onClick={generateProduct}>
-                    Generate a product
+                    Criar Pop-up (Demo)
                   </Button>
                   {fetcher.data?.product && (
                     <Button
@@ -186,7 +194,7 @@ export default function Index() {
                   <>
                     <Text as="h3" variant="headingMd">
                       {" "}
-                      productCreate mutation
+                      Dados do Exemplo (productCreate)
                     </Text>
                     <Box
                       padding="400"
@@ -204,7 +212,7 @@ export default function Index() {
                     </Box>
                     <Text as="h3" variant="headingMd">
                       {" "}
-                      productVariantsBulkUpdate mutation
+                      Detalhes da Variante do Exemplo (productVariantsBulkUpdate)
                     </Text>
                     <Box
                       padding="400"
@@ -230,97 +238,11 @@ export default function Index() {
               <Card>
                 <BlockStack gap="200">
                   <Text as="h2" variant="headingMd">
-                    App template specs
-                  </Text>
-                  <BlockStack gap="200">
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Framework
-                      </Text>
-                      <Link
-                        url="https://remix.run"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Remix
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Database
-                      </Text>
-                      <Link
-                        url="https://www.prisma.io/"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Prisma
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Interface
-                      </Text>
-                      <span>
-                        <Link
-                          url="https://polaris.shopify.com"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          Polaris
-                        </Link>
-                        {", "}
-                        <Link
-                          url="https://shopify.dev/docs/apps/tools/app-bridge"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          App Bridge
-                        </Link>
-                      </span>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        API
-                      </Text>
-                      <Link
-                        url="https://shopify.dev/docs/api/admin-graphql"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        GraphQL API
-                      </Link>
-                    </InlineStack>
-                  </BlockStack>
-                </BlockStack>
-              </Card>
-              <Card>
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    Next steps
+                    Próximos Passos com Moxxy
                   </Text>
                   <List>
                     <List.Item>
-                      Build an{" "}
-                      <Link
-                        url="https://shopify.dev/docs/apps/getting-started/build-app-example"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        {" "}
-                        example app
-                      </Link>{" "}
-                      to get started
-                    </List.Item>
-                    <List.Item>
-                      Explore Shopify’s API with{" "}
-                      <Link
-                        url="https://shopify.dev/docs/apps/tools/graphiql-admin-api"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        GraphiQL
-                      </Link>
+                      Acesse a seção de <Link url="/app/popups" removeUnderline>Gerenciamento de Pop-ups</Link> para criar e configurar seus pop-ups.
                     </List.Item>
                   </List>
                 </BlockStack>

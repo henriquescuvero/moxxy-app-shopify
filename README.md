@@ -56,6 +56,21 @@ O Moxxy App é uma aplicação Shopify embutida que permite aos lojistas gerenci
 └── /src                    # Código fonte principal
 ```
 
+## Funcionalidades Implementadas
+
+### Página de Dashboard (`app/routes/app._index.tsx`)
+A página de dashboard principal do aplicativo (`app/routes/app._index.tsx`) exibe as seguintes estatísticas resumidas sobre os pop-ups:
+- **Pop-ups Ativos**: Quantidade de pop-ups que estão atualmente ativos e em execução.
+- **Visualizações**: Número total de vezes que todos os pop-ups foram exibidos aos usuários.
+- **Cliques**: Número total de cliques que os pop-ups receberam.
+
+Esta página serve como uma visão geral rápida do desempenho dos pop-ups gerenciados pelo aplicativo. Atualmente, os dados para estas estatísticas são fornecidos de forma mockada diretamente no código da página para fins de demonstração e desenvolvimento inicial.
+
+**Atualizações Recentes na Página de Dashboard:**
+- O título "Estatísticas dos Pop-ups" agora é exibido dentro de um componente `Banner` do Polaris com o tom "success", destacando visualmente esta seção.
+- Os textos dos cards de "Recursos Principais" e "Próximos Passos" foram atualizados para serem mais informativos e alinhados com as funcionalidades do Moxxy App.
+- Botões e textos relacionados à funcionalidade de exemplo de "gerar produto" foram renomeados para "Criar Pop-up (Demo)" para melhor clareza.
+
 ## Configuração do Shopify
 
 O projeto utiliza o arquivo `shopify.app.toml` para configuração da aplicação Shopify. Configurações importantes:
@@ -108,4 +123,8 @@ Para contribuir com o projeto:
 ## Licença
 
 MIT
+
+
+// ... existing code ...
+- Ajustada a exibição dos números de impressões na tabela de pop-ups para utilizar toLocaleString('pt-BR'), garantindo separadores de milhar corretos em UTF-8 no arquivo app/routes/app.popups.tsx.
 

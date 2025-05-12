@@ -216,7 +216,7 @@ export default function PopupsPage() {
             {formatDate(createdAt)}
           </IndexTable.Cell>
           <IndexTable.Cell>
-            {impressions?.toLocaleString() ?? "0"}
+            {impressions !== undefined && impressions !== null ? impressions.toLocaleString('pt-BR') : "0"}
           </IndexTable.Cell>
           <IndexTable.Cell>
             <Popover
