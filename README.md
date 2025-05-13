@@ -66,10 +66,18 @@ A página de dashboard principal do aplicativo (`app/routes/app._index.tsx`) exi
 
 Esta página serve como uma visão geral rápida do desempenho dos pop-ups gerenciados pelo aplicativo. Atualmente, os dados para estas estatísticas são fornecidos de forma mockada diretamente no código da página para fins de demonstração e desenvolvimento inicial.
 
+A funcionalidade de "Criar Pop-up (Demo)" foi removida desta página para simplificar o dashboard e focar nas estatísticas principais.
+
+### Página de Gerenciamento de Pop-ups (`app/routes/app.popups.tsx`)
+- O botão "Criar popup" foi atualizado para usar o componente `Button` do Polaris com o `PlusIcon` para uma melhor experiência visual e consistência com a biblioteca de UI.
+- O card informativo no topo da página foi substituído por um componente `Banner` do Polaris para melhor destaque e consistência visual com outras partes do aplicativo.
+- Adicionado um botão "Add theme" com o `PlusIcon` ao lado do botão "Criar popup" na `TitleBar` para futuras funcionalidades relacionadas a temas.
+
 **Atualizações Recentes na Página de Dashboard:**
 - O título "Estatísticas dos Pop-ups" agora é exibido dentro de um componente `Banner` do Polaris com o tom "success", destacando visualmente esta seção.
+- Na página de gerenciamento de pop-ups (`app/routes/app.popups.tsx`), o card informativo que apresentava a página foi substituído por um componente `Banner` com `tone="info"`.
 - Os textos dos cards de "Recursos Principais" e "Próximos Passos" foram atualizados para serem mais informativos e alinhados com as funcionalidades do Moxxy App.
-- Botões e textos relacionados à funcionalidade de exemplo de "gerar produto" foram renomeados para "Criar Pop-up (Demo)" para melhor clareza.
+- A funcionalidade de "Criar Pop-up (Demo)" e seus elementos associados foram removidos da página de dashboard para simplificar a interface.
 
 ## Configuração do Shopify
 
@@ -127,4 +135,6 @@ MIT
 
 // ... existing code ...
 - Ajustada a exibição dos números de impressões na tabela de pop-ups para utilizar toLocaleString('pt-BR'), garantindo separadores de milhar corretos em UTF-8 no arquivo app/routes/app.popups.tsx.
+- O botão "Criar popup" na página de gerenciamento de pop-ups (`app/routes/app.popups.tsx`) foi alterado de um elemento `<button>` HTML padrão para um componente `<Button>` do Polaris, incluindo o `PlusIcon`.
+- Adicionado um botão "Add theme" (utilizando o componente `Button` do Polaris com `PlusIcon`) ao lado do botão "Criar popup" no arquivo `app/routes/app.popups.tsx`.
 
