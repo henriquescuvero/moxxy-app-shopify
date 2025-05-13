@@ -115,6 +115,10 @@ yarn dev
 O projeto está configurado para deploy em:
 - Easypanel
 
+## Releases
+
+- **v0.8** - Release inicial da tag v0.8.
+
 ## Contribuição
 
 Para contribuir com o projeto:
