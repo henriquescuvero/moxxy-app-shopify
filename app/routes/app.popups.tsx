@@ -270,7 +270,7 @@ export default function PopupsPage() {
   return (
     <Page>
       <TitleBar title="Moxxy App - Pop-ups">
-        <button onClick={handleCreateNew} className="Polaris-Button Polaris-Button--primary"> {/* Usar classes do Polaris para o botão do TitleBar */}
+        <button onClick={handleCreateNew} variant="primary"> {/* Usar classes do Polaris para o botão do TitleBar */}
           + Criar Popup
         </button>
       </TitleBar>

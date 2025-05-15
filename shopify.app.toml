@@ -3,7 +3,7 @@
 client_id = "d75918a06ce58f1ae86e07b1425ec841"
 name = "Moxxy App"
 handle = "moxxy-app"
-application_url = "https://raises-celebrities-vitamin-artificial.trycloudflare.com"
+application_url = "https://maybe-neighbors-pilot-plate.trycloudflare.com"
 embedded = true
 
 [build]
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://raises-celebrities-vitamin-artificial.trycloudflare.com/auth/callback",
-  "https://raises-celebrities-vitamin-artificial.trycloudflare.com/auth/shopify/callback",
-  "https://raises-celebrities-vitamin-artificial.trycloudflare.com/api/auth/callback"
+  "https://maybe-neighbors-pilot-plate.trycloudflare.com/auth/callback",
+  "https://maybe-neighbors-pilot-plate.trycloudflare.com/auth/shopify/callback",
+  "https://maybe-neighbors-pilot-plate.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]
