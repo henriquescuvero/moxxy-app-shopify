@@ -162,6 +162,10 @@ O projeto está configurado para deploy em:
 
 - **v0.9** - Release inicial da tag v0.9.
 
+- **v0.10** - Tag v0.10 enviada para o repositório remoto.
+
+- **v0.10** - Release inicial da tag v0.10.
+
 ## Contribuição
 
 Para contribuir com o projeto:
