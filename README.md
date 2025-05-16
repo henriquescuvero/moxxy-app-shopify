@@ -18,16 +18,20 @@ O Moxxy App é uma aplicação Shopify embutida que permite aos lojistas gerenci
 ## Funcionalidades Principais
 
 - **Gestão de Popups**:
-  - Criação e edição de popups (página dedicada `/app/popups/new` com preview interativo e layout de duas colunas).
+  - Criação e edição de popups com preview interativo e layout de duas colunas (`/app/popups/new` e `/app/popups/:id/edit`).
   - Ativação/desativação de popups.
-  - Monitoramento de métricas (impressões, conversões) - dados mockados no dashboard (`app/routes/app._index.tsx`).
-  - Gestão em massa de popups (placeholder).
+  - Visualização detalhada de popups com métricas em tempo real (`/app/popups/:id/view`).
+  - Configurações avançadas de gatilhos (carregamento da página, scroll, saída da página).
+  - Personalização completa de estilos (cores, animações, posição).
+  - Gestão em massa de popups com ações em lote.
   - Menu de ações individual (editar, excluir) para cada popup na tabela (ícone `HorizontalDotsMinor`).
   - Interface responsiva e intuitiva utilizando Polaris UI Kit.
   - Botão "Criar popup" na página de gerenciamento (`app/routes/app.popups.tsx`) utiliza componente `Button` do Polaris com `PlusIcon`.
   - Card informativo na página de gerenciamento de pop-ups substituído por `Banner` Polaris.
   - Adicionado botão "Add theme" com `PlusIcon` na `TitleBar` da página de gerenciamento de pop-ups.
   - Exibição de números de impressões na tabela de pop-ups formatada com `toLocaleString('pt-BR')`.
+  - Sistema de métricas completo com rastreamento de impressões, cliques e taxa de conversão.
+  - Configuração de duração de cookies e comportamento de fechamento.
 
 - **Dashboard (`app/routes/app._index.tsx`)**:
   - Exibe estatísticas resumidas: Pop-ups Ativos, Visualizações, Cliques (dados mockados).
@@ -47,6 +51,12 @@ O Moxxy App é uma aplicação Shopify embutida que permite aos lojistas gerenci
   - Proteção contra CSRF.
   - Webhooks verificados.
   - Validação de tokens.
+  - Validação de inputs com Zod.
+  - Proteção contra SQL injection.
+  - Rate limiting para prevenção de abuso.
+  - Logging de segurança e erros.
+  - Monitoramento de erros em tempo real.
+  - Sistema de rate limiting configurável.
 
 ## Estrutura do Projeto
 
@@ -113,17 +123,60 @@ Esta seção resume as principais alterações e melhorias recentes no aplicativ
   - **Gerenciamento de Pop-ups (`app/routes/app.popups.tsx`)**: Botão "Criar popup" atualizado para componente Polaris com `PlusIcon`; card informativo substituído por `Banner`; adicionado botão "Add theme".
   - **Criação de Pop-ups (`app/routes/app.popup.new.tsx`)**: Página corrigida e layout ajustado para preview interativo e melhor usabilidade; botões de ação restaurados.
 - **Formatação de Dados**: Números de impressões na tabela de pop-ups agora usam `toLocaleString('pt-BR')`.
+- **API de Popups (`app/routes/api/popups.$popupId.ts`)**:
+  - Corrigido bug de autenticação que impedia a correta identificação do `shopId` nas operações PUT e DELETE.
+  - Implementada a atualização do campo `metrics.lastUpdated` ao editar um popup (método PUT), preservando os valores de `impressions` e `clicks` existentes.
+  - Corrigidos erros de TypeScript relacionados à importação de módulos, definição de sessão, tratamento de tipos de erro e chamadas de autenticação nas funções `loader` e `action`.
 
 ## Configuração do Shopify
 
 O projeto utiliza o arquivo `shopify.app.toml` para configuração da aplicação Shopify. Configurações importantes:
 
 - **URL da Aplicação**: https://ins-week-seo-exterior.trycloudflare.com
-- **Escopos de Permissão**: write_products
+- **Escopos de Permissão**: write_products, read_products, write_customers, read_customers, write_orders, read_orders
 - **Webhooks Configurados**:
   - app/uninstalled
   - app/scopes_update
+  - products/create
+  - products/update
+  - products/delete
+  - orders/create
+  - orders/updated
+  - customers/create
+  - customers/update
 - **Autenticação**: Suporte a múltiplas URLs de callback
+
+## Integração com a API GraphQL do Shopify
+
+O aplicativo inclui uma integração completa com a API GraphQL do Shopify, permitindo:
+
+- Consulta de produtos
+- Sincronização de produtos com o banco de dados local
+- Gerenciamento de webhooks para eventos da loja
+
+### Scripts disponíveis
+
+- `npm run migrate` - Executa as migrações do banco de dados
+- `npm run register-webhooks -- seudominio.myshopify.com` - Registra os webhooks para uma loja específica
+- `npm run sync-products -- seudominio.myshopify.com [quantidade]` - Sincroniza produtos da loja para o banco de dados local
+
+### Estrutura de Dados
+
+O aplicativo armazena os seguintes dados localmente:
+
+- **Produtos**: Informações básicas, preços e imagens
+- **Webhooks**: Registro de eventos recebidos
+- **Sessões**: Dados de autenticação do Shopify
+
+### Webhooks
+
+Os seguintes webhooks são suportados:
+
+- **Produtos**: Criação, atualização e exclusão
+- **Pedidos**: Criação e atualização
+- **Clientes**: Criação e atualização
+
+Cada webhook é registrado automaticamente durante a instalação do aplicativo e processado de forma assíncrona para melhor desempenho.
 
 ## Desenvolvimento Local
 

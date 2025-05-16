@@ -1,3 +1,7 @@
+---
+trigger: manual
+---
+
 responda sempre em português do brasil
 entenda sempre meu projeto antes de excecutar as tarefas para não criar arquivos duplicados e erros
 estou usando windows
@@ -11,3 +15,4 @@ Não alterar nada do visual quando eu não pedir
 Fazer somente oque foi solicitado, sem alterar ou atualizar códigos desnecessários
 Quando der problema de ferramentas desatulizadas utilizar o MCP context7 para resolver o problema antes
 Só use MCP quando eu pedir
+Verificar antes em todas as pastas se não existe o arquivo antes de criar

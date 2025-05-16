@@ -5,28 +5,104 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// Note that some adapters may set a maximum length for the String type by default, please ensure your strings are long
-// enough when changing adapters.
-// See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Session {
-  id            String    @id
-  shop          String
-  state         String
+  id            String    @id @default(uuid())
+  shopDomain    String    @unique
+  state         String    @db.VarChar(255)
   isOnline      Boolean   @default(false)
-  scope         String?
+  scope         String?   @db.VarChar(255)
   expires       DateTime?
-  accessToken   String
+  accessToken   String    @db.VarChar(255)
   userId        BigInt?
-  firstName     String?
-  lastName      String?
-  email         String?
+  firstName     String?   @db.VarChar(255)
+  lastName      String?   @db.VarChar(255)
+  email         String?   @db.VarChar(255)
   accountOwner  Boolean   @default(false)
-  locale        String?
+  locale        String?   @db.VarChar(5)
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
+  shop          Shop      @relation(fields: [shopDomain], references: [shopify_domain])
+  @@index([shopDomain])
+}
+
+model Shop {
+  id              String   @id @default(uuid())
+  shopify_domain  String   @unique @db.VarChar(255)
+  access_token    String   @db.VarChar(255)
+  scopes          String[] @db.VarChar(255)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  sessions        Session[]
+  popups          Popup[]
+  products        Product[]
+  @@index([shopify_domain])
+}
+
+model Popup {
+  id              String   @id @default(uuid())
+  shop            Shop     @relation(fields: [shopId], references: [id])
+  shopId          String
+  title           String   @db.VarChar(255)
+  content         String   @db.Text
+  status          String   @default("inactive") @db.VarChar(20)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  metrics         Json?
+  trigger         String   @default("on_page_load") @db.VarChar(50)
+  duration        Int      @default(5)
+  position        String   @default("center") @db.VarChar(50)
+  animation       String   @default("fade") @db.VarChar(50)
+  backgroundColor String   @default("#ffffff") @db.VarChar(7)
+  textColor       String   @default("#000000") @db.VarChar(7)
+  buttonColor     String   @default("#007bff") @db.VarChar(7)
+  buttonTextColor String   @default("#ffffff") @db.VarChar(7)
+  cookieDuration  Int      @default(24) // em horas
+  isDismissable   Boolean  @default(true)
+  showCloseButton Boolean  @default(true)
+  zIndex          Int      @default(9999)
+  @@index([shopId])
+  @@index([status])
+  @@index([created_at])
+}
+
+model WebhookEvent {
+  id        String   @id @default(uuid())
+  topic     String   @db.VarChar(100)
+  shop      String   @db.VarChar(255)
+  payload   String   @db.Text
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([shop])
+  @@index([topic])
+  @@index([processed])
+  @@index([createdAt])
+  @@map("webhook_events")
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  shopifyId   String   @unique @db.VarChar(50)
+  title       String   @db.VarChar(255)
+  description String?  @db.Text
+  handle      String   @db.VarChar(255)
+  imageUrl    String?  @db.VarChar(512)
+  price       String   @db.VarChar(20)
+  currency    String   @default("USD") @db.VarChar(3)
+  shopId      String
+  shop        Shop     @relation(fields: [shopId], references: [id])
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([shopId])
+  @@index([title])
+  @@index([handle])
+  @@index([createdAt])
+  @@map("products")
 }

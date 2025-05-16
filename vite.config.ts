@@ -1,6 +1,8 @@
 import { vitePlugin as remix } from "@remix-run/dev";
 import { installGlobals } from "@remix-run/node";
 import { defineConfig, type UserConfig } from "vite";
+/// <reference types="vitest" />
+import { configDefaults } from 'vitest/config';
 import tsconfigPaths from "vite-tsconfig-paths";
 
 installGlobals({ nativeFetch: true });
@@ -51,6 +53,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    (globalThis as any).vitest && (globalThis as any).vitest(), // Adiciona o plugin do Vitest se estiver no contexto de teste
     remix({
       ignoredRouteFiles: ["**/.*"],
       future: {
@@ -64,6 +67,14 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
+  test: {
+    globals: true,
+    environment: 'happy-dom', // ou 'jsdom'
+    setupFiles: './app/test/setup-test-env.ts',
+    include: ['./app/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
+    watchExclude: ['.*\/node_modules\/.*', '.*\/build\/.*'],
+    exclude: [...configDefaults.exclude, '**/legacy/**'],
+  },
   build: {
     assetsInlineLimit: 0,
   },

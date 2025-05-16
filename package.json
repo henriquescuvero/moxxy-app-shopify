@@ -16,7 +16,13 @@
     "shopify": "shopify",
     "prisma": "prisma",
     "graphql-codegen": "graphql-codegen",
-    "vite": "vite"
+    "vite": "vite",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage",
+    "migrate": "tsx scripts/migrate.ts",
+    "register-webhooks": "tsx scripts/register-webhooks.ts",
+    "sync-products": "tsx scripts/sync-products.ts"
   },
   "type": "module",
   "engines": {
@@ -43,15 +49,24 @@
     "@remix-run/eslint-config": "^2.16.1",
     "@remix-run/route-config": "^2.16.1",
     "@shopify/api-codegen-preset": "^1.1.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
     "@types/eslint": "^9.6.1",
-    "@types/node": "^22.2.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.15.18",
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
+    "@vitest/ui": "^3.1.3",
+    "dotenv": "^16.5.0",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^10.0.1",
+    "happy-dom": "^17.4.7",
+    "jsdom": "^26.1.0",
     "prettier": "^3.2.4",
+    "tsx": "^4.19.4",
     "typescript": "^5.2.2",
-    "vite": "^6.2.2"
+    "vite": "^6.2.2",
+    "vitest": "^3.1.3"
   },
   "workspaces": [
     "extensions/*"
